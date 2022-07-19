@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+    <title>Pokedex</title>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="fonts.css">
+</head>
+
+<body onload="loadPokemon()">
+    <header>
+        <div><h1>Pokédex</h1></div>
+        <div>
+            <input type="text" placeholder="Search">
+            <input type="number" placeholder="30" id="amountOfPokemonShown" min="30" max="898">
+            <button onclick="showMorePokemon()">Anzeigen</button>
+        </div>
+    </header>
+    <div id="showPokedex"></div>
+    <div id="details"></div>
+
+</body>
+</html>
