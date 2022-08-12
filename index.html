@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,21 +8,37 @@
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
     <title>Pokedex</title>
     <script src="script.js"></script>
+    <script src="htmlTemplates.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="fonts.css">
 </head>
 
 <body onload="loadPokemon()">
     <header>
-        <div><h1>Pokédex</h1></div>
-        <div>
-            <input type="text" placeholder="Search">
-            <input type="number" placeholder="30" id="amountOfPokemonShown" min="30" max="898">
-            <button onclick="showMorePokemon()">Anzeigen</button>
+        <div onclick="refresh()">
+            <h1>Pokédex</h1>
+        </div>
+        <div class="headerContainerRight">
+            <input type="text" placeholder="Search Pokemon" id="search" onkeyup="searchPokemon()">
+            <div id="listSearchfield" class="d-none list"></div>
         </div>
     </header>
-    <div id="showPokedex"></div>
+    <div class="wave-center" id="waves">
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+    <div id="noScrollNoClick"></div>
+    <div id="showPokedex" onclick="addDnone()"></div>
     <div id="details"></div>
 
 </body>
+
 </html>
