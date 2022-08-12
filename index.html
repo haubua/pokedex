@@ -15,12 +15,17 @@
 
 <body onload="loadPokemon()">
     <header>
-        <div onclick="refresh()">
-            <h1>Pokédex</h1>
+        <div class="headerContainerLeft">
+            <div>
+                <h1 class="headline" onclick="refresh()">Pokédex</h1>
+            </div>
+            <div>
+                <input type="text" placeholder="Search Pokemon" id="search" onkeyup="searchPokemon()">
+                <div id="listSearchfield" class="d-none list"></div>
+            </div>
         </div>
         <div class="headerContainerRight">
-            <input type="text" placeholder="Search Pokemon" id="search" onkeyup="searchPokemon()">
-            <div id="listSearchfield" class="d-none list"></div>
+            <a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a>
         </div>
     </header>
     <div class="wave-center" id="waves">
@@ -38,7 +43,6 @@
     <div id="noScrollNoClick"></div>
     <div id="showPokedex" onclick="addDnone()"></div>
     <div id="details"></div>
-
 </body>
 
 </html>

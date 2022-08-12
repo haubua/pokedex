@@ -14,6 +14,33 @@ h2 {
     font-size: 2em;
 }
 
+.headline {
+    cursor: pointer;
+}
+
+.headerContainerLeft {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    align-items: center;
+}
+
+.headerContainerRight {
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+
+}
+
+.headerContainerRight a {
+    text-decoration: underline;
+    color: white;
+}
+
+.headerContainerRight a:hover {
+    color: rgb(44, 39, 39);
+}
+
 .wave-center {
     z-index: 5;
     height: 100vh;
@@ -111,7 +138,8 @@ header {
     background-color: #6d8da9;
     display: flex;
     color: rgb(242, 167, 27);
-    justify-content: space-around;
+    justify-content: space-between;
+    padding-right: 150px;
     height: 140px;
     align-items: center;
     font-size: 30px;
@@ -594,6 +622,9 @@ header button {
     .detailsBox {
         left: 28%;
     }
+    header {
+        padding-right: 100px;
+    }
 }
 
 @media screen and (max-width: 1350px) {
@@ -637,6 +668,9 @@ header button {
     .detailsBox {
         left: 20%;
     }
+    header {
+        padding-right: 70px;
+    }
 }
 
 @media screen and (max-width: 950px) {
@@ -660,6 +694,9 @@ header button {
 @media screen and (max-width: 800px) {
     .detailsBox {
         left: 12%;
+    }
+    header {
+        padding-right: 30px;
     }
 }
 
@@ -693,14 +730,28 @@ header button {
 
 @media screen and (max-width: 600px) {
     .detailsBox {
-        left: 7%;
-    }
-}
-
-@media screen and (max-width: 600px) {
-    .detailsBox {
         left: 5%;
     }
+    header {
+        font-size: 20px;
+        flex-direction: column;
+    }
+
+    header h1 {
+        margin-bottom: 0px;
+        margin-top: 0px;
+    }
+    
+    .headerContainerLeft {
+        flex-direction: column;
+    }
+
+    .headerContainerRight {
+        position: absolute;
+        top: 38px;
+        right: 10px;
+    }
+
 }
 
 @media screen and (max-width: 550px) {
@@ -787,6 +838,12 @@ header button {
 
     .startBar {
         height: 24px;
+    }
+    .headerContainerRight {
+        position: absolute;
+        top: 3px;
+        right: 4px;
+        font-size: 10px;
     }
 
 }
@@ -875,69 +932,13 @@ header button {
 
 }
 
-
-
-
-
-@media screen and (width: 540px) {
-    body {
-        margin-top: 133px;
-    }
-
-    header {
-        flex-direction: column;
-        font-size: 20px;
-        justify-content: start;
-        height: 133px;
-    }
-
-    header.h1 {
-        margin-bottom: 0px;
-        margin-top: 0px;
-
-    }
-
-    h2 {
-        font-size: 27px;
-    }
-
-    .pokedex {
-        margin-top: 18px;
-        width: 168px;
-        height: 378px;
-    }
-
-    .pokemonInfo {
-        width: 129px;
-        flex-direction: column;
-        margin-top: 0px;
-        margin-bottom: 4px;
-        min-height: 129px;
-    }
-
-    .pokemonImg {
-        height: 169px;
-        width: 169px;
-    }
-
-    .pokeball {
-        height: 144px;
-    }
-
-    .abilities {
-        flex-direction: column;
-        width: 128px;
-    }
-
-}
-
 @media screen and (width: 768px) {
     body {
         margin-top: 133px;
     }
 
     header {
-        flex-direction: column;
+    
         font-size: 20px;
         justify-content: start;
         height: 133px;
@@ -986,7 +987,6 @@ header button {
 
 @media screen and (max-width: 540px) {
     header {
-        flex-direction: column;
         font-size: 20px;
         justify-content: start;
         height: 133px;
@@ -995,15 +995,40 @@ header button {
     h1 {
         margin-bottom: 0px;
         margin-top: 0px;
-
-    }
-
-    .pokedex {
-        margin-top: 18px;
     }
 
     body {
         margin-top: 133px;
     }
+    h2 {
+        font-size: 27px;
+    }
 
+    .pokedex {
+        margin-top: 18px;
+        width: 168px;
+        height: 378px;
+    }
+
+    .pokemonInfo {
+        width: 129px;
+        flex-direction: column;
+        margin-top: 0px;
+        margin-bottom: 4px;
+        min-height: 129px;
+    }
+
+    .pokemonImg {
+        height: 169px;
+        width: 169px;
+    }
+
+    .pokeball {
+        height: 144px;
+    }
+
+    .abilities {
+        flex-direction: column;
+        width: 128px;
+    }
 }

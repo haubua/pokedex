@@ -33,15 +33,19 @@ async function loadAllPokemon() {
     }
 }
 
-/*function refresh() {
-    loadedPokemonArray = [];
-    currentPokemons = [];
-    alreadyloadedPokemon = 0;
-    PokemonToLoad = 28;
-    loadPokemon();
-    document.getElementById('search').value = '';
-    searchPokemon();
-}*/
+function refresh() {
+    scrollToTop();
+    document.getElementById('details').innerHTML = '';
+        document.getElementById('showPokedex').innerHTML = '';
+        document.getElementById('listSearchfield').classList.add('d-none');
+        document.body.classList.remove('overflowHidden');
+    document.getElementById('noScrollNoClick').classList.remove('noScrollNoClick');
+        document.getElementById('search').value = '';
+        alreadyloadedPokemon = 0;
+        PokemonToLoad = 30;
+        renderPokemonInfo();
+
+}
 
 
 /**
@@ -382,14 +386,7 @@ function checkTypes(i) {
 
 function renderGrassPokemon(i) {
     ifType1IsGrass(i);
-    if (`${currentPokemons[0][i]['types']['1']}` == 'undefined') { //muss diese if abfrage nur einmal überhaupt abgefragt werden?
-        document.getElementById(`type2${i}`).classList.remove('type')
-    } else {
-        if (currentPokemons[0][i]['types']['1']['type']['name'] == 'grass') {
-            document.getElementById(`type2${i}`).classList.add('background-green')
-            document.getElementById(`type2${i}`).innerHTML = `<img class="icon" src="img/grass.png"><div>${currentPokemons[0][i]['types'][1]['type']['name']}</div>`
-        }
-    }
+    doesType2ExistAndIsGrass(i);
 }
 
 function ifType1IsGrass(i) {
@@ -402,6 +399,17 @@ function ifType1IsGrass(i) {
     }
 }
 
+function doesType2ExistAndIsGrass(i) {
+    if (`${currentPokemons[0][i]['types']['1']}` == 'undefined') { //muss diese if abfrage nur einmal überhaupt abgefragt werden?
+        document.getElementById(`type2${i}`).classList.remove('type')
+    } else {
+        if (currentPokemons[0][i]['types']['1']['type']['name'] == 'grass') {
+            document.getElementById(`type2${i}`).classList.add('background-green')
+            document.getElementById(`type2${i}`).innerHTML = `<img class="icon" src="img/grass.png"><div>${currentPokemons[0][i]['types'][1]['type']['name']}</div>`
+        }
+    }
+}
+
 
 /**
  * This function will let you know which class the pokemon belongs, it will change the backgrounds and it will tell you the class 
@@ -410,6 +418,12 @@ function ifType1IsGrass(i) {
  */
 
 function renderFirePokemon(i) {
+    ifType1IsFire(i);
+    doesType2ExistAndIsFire(i);
+}
+
+
+function ifType1IsFire(i) {
     if (currentPokemons[0][i]['types']['0']['type']['name'] == 'fire') {
         document.getElementById(`pokedex${i}`).classList.add('background-red')
         document.getElementById(`showDetails${i}`).classList.add('background-red')
@@ -417,6 +431,10 @@ function renderFirePokemon(i) {
         document.getElementById(`type1${i}`).classList.add('background-red')
         document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/fire.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`
     }
+}
+
+
+function doesType2ExistAndIsFire(i) {
     if (`${currentPokemons[0][i]['types']['1']}` == 'undefined') {
         document.getElementById(`type2${i}`).classList.remove('type')
     } else {
@@ -427,7 +445,6 @@ function renderFirePokemon(i) {
     }
 }
 
-
 /**
  * This function will let you know which class the pokemon belongs, it will change the backgrounds and it will tell you the class 
  * 
@@ -435,6 +452,11 @@ function renderFirePokemon(i) {
  */
 
 function renderWaterPokemon(i) {
+    ifType1IsWater(i);
+    doesType2ExistAndIsWater(i);
+}
+
+function ifType1IsWater(i) {
     if (currentPokemons[0][i]['types']['0']['type']['name'] == 'water') {
         document.getElementById(`pokedex${i}`).classList.add('background-blue')
         document.getElementById(`showDetails${i}`).classList.add('background-blue')
@@ -442,6 +464,10 @@ function renderWaterPokemon(i) {
         document.getElementById(`type1${i}`).classList.add('background-blue')
         document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/water.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`
     }
+}
+
+
+function doesType2ExistAndIsWater(i) {
     if (`${currentPokemons[0][i]['types']['1']}` == 'undefined') {
         document.getElementById(`type2${i}`).classList.remove('type')
     } else {
@@ -451,7 +477,6 @@ function renderWaterPokemon(i) {
         }
     }
 }
-
 
 /**
  * This function will let you know which class the pokemon belongs, it will change the backgrounds and it will tell you the class 
@@ -485,6 +510,12 @@ function renderBugPokemon(i) {
  */
 
 function renderFlyingPokemon(i) {
+    ifType1IsFlying(i);
+    doesType2ExistAndIsFlying(i);
+}
+
+
+function ifType1IsFlying(i) {
     if (currentPokemons[0][i]['types']['0']['type']['name'] == 'flying') {
         document.getElementById(`pokedex${i}`).classList.add('background-lightgrey')
         document.getElementById(`showDetails${i}`).classList.add('background-lightgrey')
@@ -492,6 +523,10 @@ function renderFlyingPokemon(i) {
         document.getElementById(`type1${i}`).classList.add('background-lightgrey')
         document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/flying.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`
     }
+}
+
+
+function doesType2ExistAndIsFlying(i) {
     if (`${currentPokemons[0][i]['types']['1']}` == 'undefined') {
         document.getElementById(`type2${i}`).classList.remove('type')
     } else {
@@ -510,6 +545,11 @@ function renderFlyingPokemon(i) {
  */
 
 function renderNormalPokemon(i) {
+    ifType1IsNormal(i);
+    doesType2ExistAndIsNormal(i);
+}
+
+function ifType1IsNormal(i) {
     if (currentPokemons[0][i]['types']['0']['type']['name'] == 'normal') {
         document.getElementById(`pokedex${i}`).classList.add('background-lightgrey')
         document.getElementById(`showDetails${i}`).classList.add('background-lightgrey')
@@ -517,6 +557,9 @@ function renderNormalPokemon(i) {
         document.getElementById(`type1${i}`).classList.add('background-lightgrey')
         document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/normal.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`
     }
+}
+
+function doesType2ExistAndIsNormal(i) {
     if (`${currentPokemons[0][i]['types']['1']}` == 'undefined') {
         document.getElementById(`type2${i}`).classList.remove('type')
     } else {
@@ -535,6 +578,12 @@ function renderNormalPokemon(i) {
  */
 
 function renderPoisonPokemon(i) {
+    ifType1IsPosion(i);
+    doesType2ExistAndIsPoison(i);
+}
+
+
+function ifType1IsPosion(i) {
     if (currentPokemons[0][i]['types']['0']['type']['name'] == 'poison') {
         document.getElementById(`pokedex${i}`).classList.add('background-lightpurple')
         document.getElementById(`showDetails${i}`).classList.add('background-lightpurple')
@@ -542,6 +591,10 @@ function renderPoisonPokemon(i) {
         document.getElementById(`type1${i}`).classList.add('background-lightpurple')
         document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/poison.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`
     }
+}
+
+
+function doesType2ExistAndIsPoison(i) {
     if (`${currentPokemons[0][i]['types']['1']}` == 'undefined') {
         document.getElementById(`type2${i}`).classList.remove('type')
     } else {
@@ -560,6 +613,12 @@ function renderPoisonPokemon(i) {
  */
 
 function renderGroundPokemon(i) {
+    ifType1IsGround(i);
+    doesType2ExistAndIsGround(i);
+}
+
+
+function ifType1IsGround(i) {
     if (currentPokemons[0][i]['types']['0']['type']['name'] == 'ground') {
         document.getElementById(`pokedex${i}`).classList.add('background-lightbrown')
         document.getElementById(`showDetails${i}`).classList.add('background-lightbrown')
@@ -567,6 +626,10 @@ function renderGroundPokemon(i) {
         document.getElementById(`type1${i}`).classList.add('background-lightbrown')
         document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/ground.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`
     }
+}
+
+
+function doesType2ExistAndIsGround(i) {
     if (`${currentPokemons[0][i]['types']['1']}` == 'undefined') {
         document.getElementById(`type2${i}`).classList.remove('type')
     } else {
@@ -585,6 +648,12 @@ function renderGroundPokemon(i) {
  */
 
 function renderElectricPokemon(i) {
+    ifType1IsElectric(i);
+    doesType2ExistAndIsElectric(i);
+}
+
+
+function ifType1IsElectric(i) {
     if (currentPokemons[0][i]['types']['0']['type']['name'] == 'electric') {
         document.getElementById(`pokedex${i}`).classList.add('background-yellow')
         document.getElementById(`showDetails${i}`).classList.add('background-yellow')
@@ -592,6 +661,10 @@ function renderElectricPokemon(i) {
         document.getElementById(`type1${i}`).classList.add('background-yellow')
         document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/electric.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`
     }
+}
+
+
+function doesType2ExistAndIsElectric(i) {
     if (`${currentPokemons[0][i]['types']['1']}` == 'undefined') {
         document.getElementById(`type2${i}`).classList.remove('type')
     } else {
@@ -610,6 +683,12 @@ function renderElectricPokemon(i) {
  */
 
 function renderFairyPokemon(i) {
+    ifType1IsFairy(i);
+    doesType2ExistAndIsFairy(i);
+}
+
+
+function ifType1IsFairy(i) {
     if (currentPokemons[0][i]['types']['0']['type']['name'] == 'fairy') {
         document.getElementById(`pokedex${i}`).classList.add('background-lightpink')
         document.getElementById(`showDetails${i}`).classList.add('background-lightpink')
@@ -617,6 +696,10 @@ function renderFairyPokemon(i) {
         document.getElementById(`type1${i}`).classList.add('background-lightpink')
         document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/fairy.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`
     }
+}
+
+
+function doesType2ExistAndIsFairy(i) {
     if (`${currentPokemons[0][i]['types']['1']}` == 'undefined') {
         document.getElementById(`type2${i}`).classList.remove('type')
     } else {
@@ -635,6 +718,12 @@ function renderFairyPokemon(i) {
  */
 
 function renderFightingPokemon(i) {
+    ifType1IsFighting(i);
+    doesType2ExistAndIsFighting(i);
+}
+
+
+function ifType1IsFighting(i) {
     if (currentPokemons[0][i]['types']['0']['type']['name'] == 'fighting') {
         document.getElementById(`pokedex${i}`).classList.add('background-orange')
         document.getElementById(`showDetails${i}`).classList.add('background-orange')
@@ -642,6 +731,10 @@ function renderFightingPokemon(i) {
         document.getElementById(`type1${i}`).classList.add('background-orange')
         document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/fighting.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`
     }
+}
+
+
+function doesType2ExistAndIsFighting(i) {
     if (`${currentPokemons[0][i]['types']['1']}` == 'undefined') {
         document.getElementById(`type2${i}`).classList.remove('type')
     } else {
@@ -652,7 +745,6 @@ function renderFightingPokemon(i) {
     }
 }
 
-
 /**
  * This function will let you know which class the pokemon belongs, it will change the backgrounds and it will tell you the class 
  * 
@@ -660,6 +752,12 @@ function renderFightingPokemon(i) {
  */
 
 function renderPsychicPokemon(i) {
+    ifType1IsPsychic(i);
+    doesType2ExistAndIsPsychic(i);
+}
+
+
+function ifType1IsPsychic(i) {
     if (currentPokemons[0][i]['types']['0']['type']['name'] == 'psychic') {
         document.getElementById(`pokedex${i}`).classList.add('background-pink')
         document.getElementById(`showDetails${i}`).classList.add('background-pink')
@@ -667,6 +765,10 @@ function renderPsychicPokemon(i) {
         document.getElementById(`type1${i}`).classList.add('background-pink')
         document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/psychic.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`
     }
+}
+
+
+function doesType2ExistAndIsPsychic(i) {
     if (`${currentPokemons[0][i]['types']['1']}` == 'undefined') {
         document.getElementById(`type2${i}`).classList.remove('type')
     } else {
@@ -685,6 +787,12 @@ function renderPsychicPokemon(i) {
  */
 
 function renderRockPokemon(i) {
+    ifType1IsRock(i);
+    doesType2ExistAndIsRock(i);
+}
+
+
+function ifType1IsRock(i) {
     if (currentPokemons[0][i]['types']['0']['type']['name'] == 'rock') {
         document.getElementById(`pokedex${i}`).classList.add('background-bronze')
         document.getElementById(`showDetails${i}`).classList.add('background-bronze')
@@ -693,6 +801,10 @@ function renderRockPokemon(i) {
         document.getElementById(`closeDetails${i}`).classList.add('invert');
         document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/rock.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`
     }
+}
+
+
+function doesType2ExistAndIsRock(i) {
     if (`${currentPokemons[0][i]['types']['1']}` == 'undefined') {
         document.getElementById(`type2${i}`).classList.remove('type')
     } else {
@@ -711,6 +823,12 @@ function renderRockPokemon(i) {
  */
 
 function renderGhostPokemon(i) {
+    ifType1IsGhost(i);
+    doesType2ExistAndIsGhost(i);
+}
+
+
+function ifType1IsGhost(i) {
     if (currentPokemons[0][i]['types']['0']['type']['name'] == 'ghost') {
         document.getElementById(`pokedex${i}`).classList.add('background-purple')
         document.getElementById(`showDetails${i}`).classList.add('background-purple')
@@ -719,6 +837,10 @@ function renderGhostPokemon(i) {
         document.getElementById(`closeDetails${i}`).classList.add('invert');
         document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/ghost.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`
     }
+}
+
+
+function doesType2ExistAndIsGhost(i) {
     if (`${currentPokemons[0][i]['types']['1']}` == 'undefined') {
         document.getElementById(`type2${i}`).classList.remove('type')
     } else {
@@ -737,6 +859,12 @@ function renderGhostPokemon(i) {
  */
 
 function renderIcePokemon(i) {
+    ifType1IsIce(i);
+    doesType2ExistAndIsIce(i);
+}
+
+
+function ifType1IsIce(i) {
     if (currentPokemons[0][i]['types']['0']['type']['name'] == 'ice') {
         document.getElementById(`pokedex${i}`).classList.add('background-turquoise')
         document.getElementById(`showDetails${i}`).classList.add('background-turquoise')
@@ -744,6 +872,10 @@ function renderIcePokemon(i) {
         document.getElementById(`type1${i}`).classList.add('background-turquoise')
         document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/ice.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`
     }
+}
+
+
+function doesType2ExistAndIsIce(i) {
     if (`${currentPokemons[0][i]['types']['1']}` == 'undefined') {
         document.getElementById(`type2${i}`).classList.remove('type')
     } else {
@@ -762,6 +894,12 @@ function renderIcePokemon(i) {
  */
 
 function renderDragonPokemon(i) {
+    ifType1IsDragon(i);
+    doesType2ExistAndIsDragon(i);
+}
+
+
+function ifType1IsDragon(i) {
     if (currentPokemons[0][i]['types']['0']['type']['name'] == 'dragon') {
         document.getElementById(`pokedex${i}`).classList.add('background-redorange')
         document.getElementById(`showDetails${i}`).classList.add('background-redorange')
@@ -769,6 +907,10 @@ function renderDragonPokemon(i) {
         document.getElementById(`type1${i}`).classList.add('background-redorange')
         document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/dragon.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`
     }
+}
+
+
+function doesType2ExistAndIsDragon(i) {
     if (`${currentPokemons[0][i]['types']['1']}` == 'undefined') {
         document.getElementById(`type2${i}`).classList.remove('type')
     } else {
@@ -787,6 +929,12 @@ function renderDragonPokemon(i) {
  */
 
 function renderDarkPokemon(i) {
+    ifType1IsDark(i);
+    doesType2ExistAndIsDark(i);
+}
+
+
+function ifType1IsDark(i) {
     if (currentPokemons[0][i]['types']['0']['type']['name'] == 'dark') {
         document.getElementById(`pokedex${i}`).classList.add('background-grey')
         document.getElementById(`showDetails${i}`).classList.add('background-grey')
@@ -794,6 +942,10 @@ function renderDarkPokemon(i) {
         document.getElementById(`type1${i}`).classList.add('background-grey')
         document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/dark.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`
     }
+}
+
+
+function doesType2ExistAndIsDark(i) {
     if (`${currentPokemons[0][i]['types']['1']}` == 'undefined') {
         document.getElementById(`type2${i}`).classList.remove('type')
     } else {
@@ -812,6 +964,12 @@ function renderDarkPokemon(i) {
  */
 
 function renderSteelPokemon(i) {
+    ifType1IsSteel(i);
+    doesType2ExistAndIsSteel(i);
+}
+
+
+function ifType1IsSteel(i) {
     if (currentPokemons[0][i]['types']['0']['type']['name'] == 'steel') {
         document.getElementById(`pokedex${i}`).classList.add('background-silver')
         document.getElementById(`showDetails${i}`).classList.add('background-silver')
@@ -819,6 +977,10 @@ function renderSteelPokemon(i) {
         document.getElementById(`type1${i}`).classList.add('background-silver')
         document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/steel.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`
     }
+}
+
+
+function doesType2ExistAndIsSteel(i) {
     if (`${currentPokemons[0][i]['types']['1']}` == 'undefined') {
         document.getElementById(`type2${i}`).classList.remove('type')
     } else {
