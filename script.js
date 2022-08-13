@@ -33,23 +33,27 @@ async function loadAllPokemon() {
     }
 }
 
+/**
+ * This function will refresh the Website
+ */
+
 function refresh() {
     scrollToTop();
     document.getElementById('details').innerHTML = '';
-        document.getElementById('showPokedex').innerHTML = '';
-        document.getElementById('listSearchfield').classList.add('d-none');
-        document.body.classList.remove('overflowHidden');
+    document.getElementById('showPokedex').innerHTML = '';
+    document.getElementById('listSearchfield').classList.add('d-none');
+    document.body.classList.remove('overflowHidden');
     document.getElementById('noScrollNoClick').classList.remove('noScrollNoClick');
-        document.getElementById('search').value = '';
-        alreadyloadedPokemon = 0;
-        PokemonToLoad = 30;
-        renderPokemonInfo();
+    document.getElementById('search').value = '';
+    alreadyloadedPokemon = 0;
+    PokemonToLoad = 30;
+    renderPokemonInfo();
 
 }
 
 
 /**
- * This function will render the main-contet
+ * This function will render the main-content
  */
 
 function renderPokemonInfo() {
@@ -67,14 +71,9 @@ function renderPokemonInfo() {
 
 function renderPokemonInfoTemplate() {
     for (let i = alreadyloadedPokemon; i < PokemonToLoad; i++) {
-        document.getElementById('showPokedex').innerHTML += `<div id="pokedex${i}" class="pokedex">
-        <h2 class="pokemonName">${currentPokemons[0][i]['name']}</h2>
-        <img class="pokeball" src="img/pokeball.png">
-        <img class="pokemonImg" src="${currentPokemons[0][i]['sprites']['other']['home']['front_shiny']}" alt="">
-        <div id="pokemonInfo${i}" class="pokemonInfo"></div>
-    </div>`;
-        renderDetails(i);   //können diese 3 funtionen oben nach dem aufrufen der Template function eingebaut werden?!
-        showAbilities(i);   // wenn ja hauptfunction in htmlTemplates verschieben und die 3 functionen oben dazu!
+        renderPokemonInfoHtmlTemplate(i);
+        renderDetails(i);
+        showAbilities(i);
         checkTypes(i);
     }
 }
@@ -88,10 +87,10 @@ function searchPokemon() {
     scrollToTop();
     let search = document.getElementById('search').value;
     let pokedex = document.getElementById('showPokedex');
-    let listSearchfield = document.getElementById('listSearchfield')
+    let listSearchfield = document.getElementById('listSearchfield');
     search = search.toLowerCase();
     startSearch(search, pokedex, listSearchfield);
-    checkIfTheSearchfieldGotCleared(search, pokedex, listSearchfield)
+    checkIfTheSearchfieldGotCleared(search, pokedex, listSearchfield);
 }
 
 
@@ -105,8 +104,8 @@ function searchPokemon() {
 
 function startSearch(search, pokedex, listSearchfield) {
     if (searchfieldValueSmallerThen2(search)) {
-        listSearchfield.classList.remove('d-none')
-        listSearchfield.innerHTML = `<div class="padding3px">'Enter at least 2 characters'</div>`
+        listSearchfield.classList.remove('d-none');
+        listSearchfield.innerHTML = `<div class="padding3px">'Enter at least 2 characters'</div>`;
     } else {
         valueofSearchBiggerThen2(search, pokedex, listSearchfield);
     }
@@ -121,7 +120,7 @@ function startSearch(search, pokedex, listSearchfield) {
  */
 
 function searchfieldValueSmallerThen2(search) {
-    return search.length < 2
+    return search.length < 2;
 }
 
 
@@ -139,8 +138,8 @@ function valueofSearchBiggerThen2(search, pokedex, listSearchfield) {
     pokedex.innerHTML = '';
     listSearchfield.innerHTML = '';
     listSearchfield.classList.remove('d-none');
-    let filtered = loadedPokemonArray.filter(pokemon => String(pokemon.name).startsWith(search))
-    currentPokemons.push(filtered)
+    let filtered = loadedPokemonArray.filter(pokemon => String(pokemon.name).startsWith(search));
+    currentPokemons.push(filtered);
     checksIfThePokemonExists(filtered, pokedex, listSearchfield);
 }
 
@@ -155,7 +154,7 @@ function valueofSearchBiggerThen2(search, pokedex, listSearchfield) {
 function checksIfThePokemonExists(filtered, pokedex, listSearchfield) {
     if (noPokemonFound(filtered)) {
         listSearchfield.classList.add('d-none');
-        pokedex.innerHTML += '<div class="notFound">no pokemon with this name could be found!</div>'
+        pokedex.innerHTML += '<div class="notFound">no pokemon with this name could be found!</div>';
     } else {
         renderSearchPokedex(filtered, pokedex, listSearchfield);
     }
@@ -169,8 +168,9 @@ function checksIfThePokemonExists(filtered, pokedex, listSearchfield) {
  */
 
 function noPokemonFound(filtered) {
-    return filtered.length == 0
+    return filtered.length == 0;
 }
+
 
 /**
  *  This function will render the searched pokemon 
@@ -181,7 +181,7 @@ function noPokemonFound(filtered) {
 
 function renderSearchPokedex(filtered, pokedex, listSearchfield) {
     for (let i = 0; i < filtered.length; i++) {
-        listSearchfield.innerHTML += `<div class="showName" onclick="showDetails(${i})">${currentPokemons[0][i]['name']}</div>`
+        listSearchfield.innerHTML += `<div class="showName" onclick="showDetails(${i})">${currentPokemons[0][i]['name']}</div>`;
         renderSearchPokedexTemplate(i, pokedex);
         showAbilities(i);
         renderDetails(i);
@@ -202,12 +202,13 @@ function checkIfTheSearchfieldGotCleared(search, pokedex, listSearchfield) {
     if (searchfieldIsEmpty(search)) {
         document.getElementById('details').innerHTML = '';
         pokedex.innerHTML = '';
-        listSearchfield.classList.add('d-none')
+        listSearchfield.classList.add('d-none');
         alreadyloadedPokemon = 0;
         PokemonToLoad = 30;
         renderPokemonInfo();
     }
 }
+
 
 /**
  * This functiion just returns is the seachfield is empty
@@ -216,7 +217,7 @@ function checkIfTheSearchfieldGotCleared(search, pokedex, listSearchfield) {
  */
 
 function searchfieldIsEmpty(search) {
-    return search.length == 0
+    return search.length == 0;
 }
 
 
@@ -266,7 +267,7 @@ window.addEventListener('scroll', () => {
  */
 
 function pageIsScrolledToBottomAndTheSearchIsNotActive(scrollable, scrolled, search) {
-    return Math.ceil(scrolled) === scrollable && search.length == 0
+    return Math.ceil(scrolled) === scrollable && search.length == 0;
 }
 
 /**
@@ -305,7 +306,7 @@ function showDetails(i) {
     document.getElementById('listSearchfield').classList.add('d-none');
     document.getElementById(`detailsBox${i}`).classList.remove('d-none');
     document.getElementById('noScrollNoClick').classList.add('noScrollNoClick');
-    document.body.classList.add('overflowHidden')
+    document.body.classList.add('overflowHidden');
     renderDetails(i);
 }
 
@@ -379,6 +380,16 @@ function checkTypes(i) {
 
 
 /**
+ * This function will modify the detailsbox if type 2 doesn´t exist
+ */
+
+function type2doesNotExist(i) {
+    document.getElementById(`type2${i}`).classList.remove('type');
+    document.getElementById(`pokemonDetails1stContainer${i}`).classList.add('center');
+}
+
+
+/**
  * This function will let you know which class the pokemon belongs, it will change the backgrounds and it will tell you the class 
  * 
  * @param {*} i 
@@ -389,23 +400,37 @@ function renderGrassPokemon(i) {
     doesType2ExistAndIsGrass(i);
 }
 
+
+/**
+ * This function will check Type 1 of the Pokemon
+ * 
+ * @param {*} i 
+ */
+
 function ifType1IsGrass(i) {
     if (currentPokemons[0][i]['types']['0']['type']['name'] == 'grass') {
         document.getElementById(`pokedex${i}`).classList.add('background-green');
-        document.getElementById(`showDetails${i}`).classList.add('background-green')
-        document.getElementById(`detailsBox${i}`).classList.add('background-green')
-        document.getElementById(`type1${i}`).classList.add('background-green')
-        document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/grass.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`
+        document.getElementById(`showDetails${i}`).classList.add('background-green');
+        document.getElementById(`detailsBox${i}`).classList.add('background-green');
+        document.getElementById(`type1${i}`).classList.add('background-green');
+        document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/grass.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`;
     }
 }
 
+
+/**
+ * This function will check Type 2 of the Pokemon
+ * 
+ * @param {*} i 
+ */
+
 function doesType2ExistAndIsGrass(i) {
-    if (`${currentPokemons[0][i]['types']['1']}` == 'undefined') { //muss diese if abfrage nur einmal überhaupt abgefragt werden?
-        document.getElementById(`type2${i}`).classList.remove('type')
+    if (`${currentPokemons[0][i]['types']['1']}` == 'undefined') {
+        type2doesNotExist(i);
     } else {
         if (currentPokemons[0][i]['types']['1']['type']['name'] == 'grass') {
-            document.getElementById(`type2${i}`).classList.add('background-green')
-            document.getElementById(`type2${i}`).innerHTML = `<img class="icon" src="img/grass.png"><div>${currentPokemons[0][i]['types'][1]['type']['name']}</div>`
+            document.getElementById(`type2${i}`).classList.add('background-green');
+            document.getElementById(`type2${i}`).innerHTML = `<img class="icon" src="img/grass.png"><div>${currentPokemons[0][i]['types'][1]['type']['name']}</div>`;
         }
     }
 }
@@ -423,27 +448,41 @@ function renderFirePokemon(i) {
 }
 
 
+/**
+ * This function will check Type 1 of the Pokemon
+ * 
+ * @param {*} i 
+ */
+
 function ifType1IsFire(i) {
     if (currentPokemons[0][i]['types']['0']['type']['name'] == 'fire') {
-        document.getElementById(`pokedex${i}`).classList.add('background-red')
-        document.getElementById(`showDetails${i}`).classList.add('background-red')
-        document.getElementById(`detailsBox${i}`).classList.add('background-red')
-        document.getElementById(`type1${i}`).classList.add('background-red')
-        document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/fire.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`
+        document.getElementById(`pokedex${i}`).classList.add('background-red');
+        document.getElementById(`showDetails${i}`).classList.add('background-red');
+        document.getElementById(`detailsBox${i}`).classList.add('background-red');
+        document.getElementById(`type1${i}`).classList.add('background-red');
+        document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/fire.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`;
     }
 }
 
+
+/**
+ * This function will check Type 2 of the Pokemon
+ * 
+ * @param {*} i 
+ */
 
 function doesType2ExistAndIsFire(i) {
     if (`${currentPokemons[0][i]['types']['1']}` == 'undefined') {
-        document.getElementById(`type2${i}`).classList.remove('type')
+        type2doesNotExist(i);
     } else {
         if (currentPokemons[0][i]['types']['1']['type']['name'] == 'fire') {
-            document.getElementById(`type2${i}`).classList.add('background-red')
-            document.getElementById(`type2${i}`).innerHTML = `<img class="icon" src="img/fire.png"><div>${currentPokemons[0][i]['types'][1]['type']['name']}</div>`
+            document.getElementById(`pokemonDetails1stContainer${i}`).classList.remove('center');
+            document.getElementById(`type2${i}`).classList.add('background-red');
+            document.getElementById(`type2${i}`).innerHTML = `<img class="icon" src="img/fire.png"><div>${currentPokemons[0][i]['types'][1]['type']['name']}</div>`;
         }
     }
 }
+
 
 /**
  * This function will let you know which class the pokemon belongs, it will change the backgrounds and it will tell you the class 
@@ -456,24 +495,37 @@ function renderWaterPokemon(i) {
     doesType2ExistAndIsWater(i);
 }
 
+
+/**
+ * This function will check Type 1 of the Pokemon
+ * 
+ * @param {*} i 
+ */
+
 function ifType1IsWater(i) {
     if (currentPokemons[0][i]['types']['0']['type']['name'] == 'water') {
-        document.getElementById(`pokedex${i}`).classList.add('background-blue')
-        document.getElementById(`showDetails${i}`).classList.add('background-blue')
-        document.getElementById(`detailsBox${i}`).classList.add('background-blue')
-        document.getElementById(`type1${i}`).classList.add('background-blue')
-        document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/water.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`
+        document.getElementById(`pokedex${i}`).classList.add('background-blue');
+        document.getElementById(`showDetails${i}`).classList.add('background-blue');
+        document.getElementById(`detailsBox${i}`).classList.add('background-blue');
+        document.getElementById(`type1${i}`).classList.add('background-blue');
+        document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/water.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`;
     }
 }
 
 
+/**
+ * This function will check Type 2 of the Pokemon
+ * 
+ * @param {*} i 
+ */
+
 function doesType2ExistAndIsWater(i) {
     if (`${currentPokemons[0][i]['types']['1']}` == 'undefined') {
-        document.getElementById(`type2${i}`).classList.remove('type')
+        type2doesNotExist(i);
     } else {
         if (currentPokemons[0][i]['types']['1']['type']['name'] == 'water') {
-            document.getElementById(`type2${i}`).classList.add('background-blue')
-            document.getElementById(`type2${i}`).innerHTML = `<img class="icon" src="img/water.png"><div>${currentPokemons[0][i]['types'][1]['type']['name']}</div>`
+            document.getElementById(`type2${i}`).classList.add('background-blue');
+            document.getElementById(`type2${i}`).innerHTML = `<img class="icon" src="img/water.png"><div>${currentPokemons[0][i]['types'][1]['type']['name']}</div>`;
         }
     }
 }
@@ -485,19 +537,41 @@ function doesType2ExistAndIsWater(i) {
  */
 
 function renderBugPokemon(i) {
+    ifType1IsBug(i);
+    doesType2ExistAndIsBug(i);
+}
+
+
+/**
+ * This function will check Type 1 of the Pokemon
+ * 
+ * @param {*} i 
+ */
+
+function ifType1IsBug(i) {
     if (currentPokemons[0][i]['types']['0']['type']['name'] == 'bug') {
-        document.getElementById(`pokedex${i}`).classList.add('background-darkgreen')
-        document.getElementById(`showDetails${i}`).classList.add('background-darkgreen')
-        document.getElementById(`detailsBox${i}`).classList.add('background-darkgreen')
-        document.getElementById(`type1${i}`).classList.add('background-darkgreen')
-        document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/bug.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`
+        document.getElementById(`pokedex${i}`).classList.add('background-darkgreen');
+        document.getElementById(`showDetails${i}`).classList.add('background-darkgreen');
+        document.getElementById(`detailsBox${i}`).classList.add('background-darkgreen');
+        document.getElementById(`type1${i}`).classList.add('background-darkgreen');
+        document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/bug.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`;
     }
+}
+
+
+/**
+ * This function will check Type 2 of the Pokemon
+ * 
+ * @param {*} i 
+ */
+
+function doesType2ExistAndIsBug(i) {
     if (`${currentPokemons[0][i]['types']['1']}` == 'undefined') {
-        document.getElementById(`type2${i}`).classList.remove('type')
+        type2doesNotExist(i);
     } else {
         if (currentPokemons[0][i]['types']['1']['type']['name'] == 'bug') {
-            document.getElementById(`type2${i}`).classList.add('background-darkgreen')
-            document.getElementById(`type2${i}`).innerHTML = `<img class="icon" src="img/bug.png"><div>${currentPokemons[0][i]['types'][1]['type']['name']}</div>`
+            document.getElementById(`type2${i}`).classList.add('background-darkgreen');
+            document.getElementById(`type2${i}`).innerHTML = `<img class="icon" src="img/bug.png"><div>${currentPokemons[0][i]['types'][1]['type']['name']}</div>`;
         }
     }
 }
@@ -515,24 +589,36 @@ function renderFlyingPokemon(i) {
 }
 
 
+/**
+ * This function will check Type 1 of the Pokemon
+ * 
+ * @param {*} i 
+ */
+
 function ifType1IsFlying(i) {
     if (currentPokemons[0][i]['types']['0']['type']['name'] == 'flying') {
-        document.getElementById(`pokedex${i}`).classList.add('background-lightgrey')
-        document.getElementById(`showDetails${i}`).classList.add('background-lightgrey')
-        document.getElementById(`detailsBox${i}`).classList.add('background-lightgrey')
-        document.getElementById(`type1${i}`).classList.add('background-lightgrey')
-        document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/flying.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`
+        document.getElementById(`pokedex${i}`).classList.add('background-lightgrey');
+        document.getElementById(`showDetails${i}`).classList.add('background-lightgrey');
+        document.getElementById(`detailsBox${i}`).classList.add('background-lightgrey');
+        document.getElementById(`type1${i}`).classList.add('background-lightgrey');
+        document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/flying.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`;
     }
 }
 
 
+/**
+ * This function will check Type 2 of the Pokemon
+ * 
+ * @param {*} i 
+ */
+
 function doesType2ExistAndIsFlying(i) {
     if (`${currentPokemons[0][i]['types']['1']}` == 'undefined') {
-        document.getElementById(`type2${i}`).classList.remove('type')
+        type2doesNotExist(i);
     } else {
         if (currentPokemons[0][i]['types']['1']['type']['name'] == 'flying') {
-            document.getElementById(`type2${i}`).classList.add('background-lightgrey')
-            document.getElementById(`type2${i}`).innerHTML = `<img class="icon" src="img/flying.png"><div>${currentPokemons[0][i]['types'][1]['type']['name']}</div>`
+            document.getElementById(`type2${i}`).classList.add('background-lightgrey');
+            document.getElementById(`type2${i}`).innerHTML = `<img class="icon" src="img/flying.png"><div>${currentPokemons[0][i]['types'][1]['type']['name']}</div>`;
         }
     }
 }
@@ -549,23 +635,37 @@ function renderNormalPokemon(i) {
     doesType2ExistAndIsNormal(i);
 }
 
+
+/**
+ * This function will check Type 1 of the Pokemon
+ * 
+ * @param {*} i 
+ */
+
 function ifType1IsNormal(i) {
     if (currentPokemons[0][i]['types']['0']['type']['name'] == 'normal') {
-        document.getElementById(`pokedex${i}`).classList.add('background-lightgrey')
-        document.getElementById(`showDetails${i}`).classList.add('background-lightgrey')
-        document.getElementById(`detailsBox${i}`).classList.add('background-lightgrey')
-        document.getElementById(`type1${i}`).classList.add('background-lightgrey')
-        document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/normal.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`
+        document.getElementById(`pokedex${i}`).classList.add('background-lightgrey');
+        document.getElementById(`showDetails${i}`).classList.add('background-lightgrey');
+        document.getElementById(`detailsBox${i}`).classList.add('background-lightgrey');
+        document.getElementById(`type1${i}`).classList.add('background-lightgrey');
+        document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/normal.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`;
     }
 }
 
+
+/**
+ * This function will check Type 2 of the Pokemon
+ * 
+ * @param {*} i 
+ */
+
 function doesType2ExistAndIsNormal(i) {
     if (`${currentPokemons[0][i]['types']['1']}` == 'undefined') {
-        document.getElementById(`type2${i}`).classList.remove('type')
+        type2doesNotExist(i);
     } else {
         if (currentPokemons[0][i]['types']['1']['type']['name'] == 'normal') {
-            document.getElementById(`type2${i}`).classList.add('background-lightgrey')
-            document.getElementById(`type2${i}`).innerHTML = `<img class="icon" src="img/normal.png"><div>${currentPokemons[0][i]['types'][1]['type']['name']}</div>`
+            document.getElementById(`type2${i}`).classList.add('background-lightgrey');
+            document.getElementById(`type2${i}`).innerHTML = `<img class="icon" src="img/normal.png"><div>${currentPokemons[0][i]['types'][1]['type']['name']}</div>`;
         }
     }
 }
@@ -583,24 +683,36 @@ function renderPoisonPokemon(i) {
 }
 
 
+/**
+ * This function will check Type 1 of the Pokemon
+ * 
+ * @param {*} i 
+ */
+
 function ifType1IsPosion(i) {
     if (currentPokemons[0][i]['types']['0']['type']['name'] == 'poison') {
-        document.getElementById(`pokedex${i}`).classList.add('background-lightpurple')
-        document.getElementById(`showDetails${i}`).classList.add('background-lightpurple')
-        document.getElementById(`detailsBox${i}`).classList.add('background-lightpurple')
-        document.getElementById(`type1${i}`).classList.add('background-lightpurple')
-        document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/poison.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`
+        document.getElementById(`pokedex${i}`).classList.add('background-lightpurple');
+        document.getElementById(`showDetails${i}`).classList.add('background-lightpurple');
+        document.getElementById(`detailsBox${i}`).classList.add('background-lightpurple');
+        document.getElementById(`type1${i}`).classList.add('background-lightpurple');
+        document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/poison.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`;
     }
 }
 
 
+/**
+ * This function will check Type 2 of the Pokemon
+ * 
+ * @param {*} i 
+ */
+
 function doesType2ExistAndIsPoison(i) {
     if (`${currentPokemons[0][i]['types']['1']}` == 'undefined') {
-        document.getElementById(`type2${i}`).classList.remove('type')
+        type2doesNotExist(i);
     } else {
         if (currentPokemons[0][i]['types']['1']['type']['name'] == 'poison') {
-            document.getElementById(`type2${i}`).classList.add('background-lightpurple')
-            document.getElementById(`type2${i}`).innerHTML = `<img class="icon" src="img/poison.png"><div>${currentPokemons[0][i]['types'][1]['type']['name']}</div>`
+            document.getElementById(`type2${i}`).classList.add('background-lightpurple');
+            document.getElementById(`type2${i}`).innerHTML = `<img class="icon" src="img/poison.png"><div>${currentPokemons[0][i]['types'][1]['type']['name']}</div>`;
         }
     }
 }
@@ -618,24 +730,36 @@ function renderGroundPokemon(i) {
 }
 
 
+/**
+ * This function will check Type 1 of the Pokemon
+ * 
+ * @param {*} i 
+ */
+
 function ifType1IsGround(i) {
     if (currentPokemons[0][i]['types']['0']['type']['name'] == 'ground') {
-        document.getElementById(`pokedex${i}`).classList.add('background-lightbrown')
-        document.getElementById(`showDetails${i}`).classList.add('background-lightbrown')
-        document.getElementById(`detailsBox${i}`).classList.add('background-lightbrown')
-        document.getElementById(`type1${i}`).classList.add('background-lightbrown')
-        document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/ground.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`
+        document.getElementById(`pokedex${i}`).classList.add('background-lightbrown');
+        document.getElementById(`showDetails${i}`).classList.add('background-lightbrown');
+        document.getElementById(`detailsBox${i}`).classList.add('background-lightbrown');
+        document.getElementById(`type1${i}`).classList.add('background-lightbrown');
+        document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/ground.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`;
     }
 }
 
 
+/**
+ * This function will check Type 2 of the Pokemon
+ * 
+ * @param {*} i 
+ */
+
 function doesType2ExistAndIsGround(i) {
     if (`${currentPokemons[0][i]['types']['1']}` == 'undefined') {
-        document.getElementById(`type2${i}`).classList.remove('type')
+        type2doesNotExist(i);
     } else {
         if (currentPokemons[0][i]['types']['1']['type']['name'] == 'ground') {
-            document.getElementById(`type2${i}`).classList.add('background-lightbrown')
-            document.getElementById(`type2${i}`).innerHTML = `<img class="icon" src="img/ground.png"><div>${currentPokemons[0][i]['types'][1]['type']['name']}</div>`
+            document.getElementById(`type2${i}`).classList.add('background-lightbrown');
+            document.getElementById(`type2${i}`).innerHTML = `<img class="icon" src="img/ground.png"><div>${currentPokemons[0][i]['types'][1]['type']['name']}</div>`;
         }
     }
 }
@@ -653,24 +777,36 @@ function renderElectricPokemon(i) {
 }
 
 
+/**
+ * This function will check Type 1 of the Pokemon
+ * 
+ * @param {*} i 
+ */
+
 function ifType1IsElectric(i) {
     if (currentPokemons[0][i]['types']['0']['type']['name'] == 'electric') {
-        document.getElementById(`pokedex${i}`).classList.add('background-yellow')
-        document.getElementById(`showDetails${i}`).classList.add('background-yellow')
-        document.getElementById(`detailsBox${i}`).classList.add('background-yellow')
-        document.getElementById(`type1${i}`).classList.add('background-yellow')
-        document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/electric.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`
+        document.getElementById(`pokedex${i}`).classList.add('background-yellow');
+        document.getElementById(`showDetails${i}`).classList.add('background-yellow');
+        document.getElementById(`detailsBox${i}`).classList.add('background-yellow');
+        document.getElementById(`type1${i}`).classList.add('background-yellow');
+        document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/electric.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`;
     }
 }
 
 
+/**
+ * This function will check Type 2 of the Pokemon
+ * 
+ * @param {*} i 
+ */
+
 function doesType2ExistAndIsElectric(i) {
     if (`${currentPokemons[0][i]['types']['1']}` == 'undefined') {
-        document.getElementById(`type2${i}`).classList.remove('type')
+        type2doesNotExist(i);
     } else {
         if (currentPokemons[0][i]['types']['1']['type']['name'] == 'electric') {
-            document.getElementById(`type2${i}`).classList.add('background-yellow')
-            document.getElementById(`type2${i}`).innerHTML = `<img class="icon" src="img/electric.png"><div>${currentPokemons[0][i]['types'][1]['type']['name']}</div>`
+            document.getElementById(`type2${i}`).classList.add('background-yellow');
+            document.getElementById(`type2${i}`).innerHTML = `<img class="icon" src="img/electric.png"><div>${currentPokemons[0][i]['types'][1]['type']['name']}</div>`;
         }
     }
 }
@@ -687,25 +823,37 @@ function renderFairyPokemon(i) {
     doesType2ExistAndIsFairy(i);
 }
 
+/**
+ * This function will check Type 1 of the Pokemon
+ * 
+ * @param {*} i 
+ */
+
 
 function ifType1IsFairy(i) {
     if (currentPokemons[0][i]['types']['0']['type']['name'] == 'fairy') {
-        document.getElementById(`pokedex${i}`).classList.add('background-lightpink')
-        document.getElementById(`showDetails${i}`).classList.add('background-lightpink')
-        document.getElementById(`detailsBox${i}`).classList.add('background-lightpink')
-        document.getElementById(`type1${i}`).classList.add('background-lightpink')
-        document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/fairy.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`
+        document.getElementById(`pokedex${i}`).classList.add('background-lightpink');
+        document.getElementById(`showDetails${i}`).classList.add('background-lightpink');
+        document.getElementById(`detailsBox${i}`).classList.add('background-lightpink');
+        document.getElementById(`type1${i}`).classList.add('background-lightpink');
+        document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/fairy.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`;
     }
 }
 
 
+/**
+ * This function will check Type 2 of the Pokemon
+ * 
+ * @param {*} i 
+ */
+
 function doesType2ExistAndIsFairy(i) {
     if (`${currentPokemons[0][i]['types']['1']}` == 'undefined') {
-        document.getElementById(`type2${i}`).classList.remove('type')
+        type2doesNotExist(i);
     } else {
         if (currentPokemons[0][i]['types']['1']['type']['name'] == 'fairy') {
-            document.getElementById(`type2${i}`).classList.add('background-lightpink')
-            document.getElementById(`type2${i}`).innerHTML = `<img class="icon" src="img/fairy.png"><div>${currentPokemons[0][i]['types'][1]['type']['name']}</div>`
+            document.getElementById(`type2${i}`).classList.add('background-lightpink');
+            document.getElementById(`type2${i}`).innerHTML = `<img class="icon" src="img/fairy.png"><div>${currentPokemons[0][i]['types'][1]['type']['name']}</div>`;
         }
     }
 }
@@ -723,24 +871,36 @@ function renderFightingPokemon(i) {
 }
 
 
+/**
+ * This function will check Type 1 of the Pokemon
+ * 
+ * @param {*} i 
+ */
+
 function ifType1IsFighting(i) {
     if (currentPokemons[0][i]['types']['0']['type']['name'] == 'fighting') {
-        document.getElementById(`pokedex${i}`).classList.add('background-orange')
-        document.getElementById(`showDetails${i}`).classList.add('background-orange')
-        document.getElementById(`detailsBox${i}`).classList.add('background-orange')
-        document.getElementById(`type1${i}`).classList.add('background-orange')
-        document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/fighting.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`
+        document.getElementById(`pokedex${i}`).classList.add('background-orange');
+        document.getElementById(`showDetails${i}`).classList.add('background-orange');
+        document.getElementById(`detailsBox${i}`).classList.add('background-orange');
+        document.getElementById(`type1${i}`).classList.add('background-orange');
+        document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/fighting.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`;
     }
 }
 
 
+/**
+ * This function will check Type 2 of the Pokemon
+ * 
+ * @param {*} i 
+ */
+
 function doesType2ExistAndIsFighting(i) {
     if (`${currentPokemons[0][i]['types']['1']}` == 'undefined') {
-        document.getElementById(`type2${i}`).classList.remove('type')
+        type2doesNotExist(i);
     } else {
         if (currentPokemons[0][i]['types']['1']['type']['name'] == 'fighting') {
-            document.getElementById(`type2${i}`).classList.add('background-orange')
-            document.getElementById(`type2${i}`).innerHTML = `<img class="icon" src="img/fighting.png"><div>${currentPokemons[0][i]['types'][1]['type']['name']}</div>`
+            document.getElementById(`type2${i}`).classList.add('background-orange');
+            document.getElementById(`type2${i}`).innerHTML = `<img class="icon" src="img/fighting.png"><div>${currentPokemons[0][i]['types'][1]['type']['name']}</div>`;
         }
     }
 }
@@ -757,24 +917,36 @@ function renderPsychicPokemon(i) {
 }
 
 
+/**
+ * This function will check Type 1 of the Pokemon
+ * 
+ * @param {*} i 
+ */
+
 function ifType1IsPsychic(i) {
     if (currentPokemons[0][i]['types']['0']['type']['name'] == 'psychic') {
-        document.getElementById(`pokedex${i}`).classList.add('background-pink')
-        document.getElementById(`showDetails${i}`).classList.add('background-pink')
-        document.getElementById(`detailsBox${i}`).classList.add('background-pink')
-        document.getElementById(`type1${i}`).classList.add('background-pink')
-        document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/psychic.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`
+        document.getElementById(`pokedex${i}`).classList.add('background-pink');
+        document.getElementById(`showDetails${i}`).classList.add('background-pink');
+        document.getElementById(`detailsBox${i}`).classList.add('background-pink');
+        document.getElementById(`type1${i}`).classList.add('background-pink');
+        document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/psychic.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`;
     }
 }
 
 
+/**
+ * This function will check Type 2 of the Pokemon
+ * 
+ * @param {*} i 
+ */
+
 function doesType2ExistAndIsPsychic(i) {
     if (`${currentPokemons[0][i]['types']['1']}` == 'undefined') {
-        document.getElementById(`type2${i}`).classList.remove('type')
+        type2doesNotExist(i);
     } else {
         if (currentPokemons[0][i]['types']['1']['type']['name'] == 'psychic') {
-            document.getElementById(`type2${i}`).classList.add('background-pink')
-            document.getElementById(`type2${i}`).innerHTML = `<img class="icon" src="img/psychic.png"><div>${currentPokemons[0][i]['types'][1]['type']['name']}</div>`
+            document.getElementById(`type2${i}`).classList.add('background-pink');
+            document.getElementById(`type2${i}`).innerHTML = `<img class="icon" src="img/psychic.png"><div>${currentPokemons[0][i]['types'][1]['type']['name']}</div>`;
         }
     }
 }
@@ -792,25 +964,37 @@ function renderRockPokemon(i) {
 }
 
 
+/**
+ * This function will check Type 1 of the Pokemon
+ * 
+ * @param {*} i 
+ */
+
 function ifType1IsRock(i) {
     if (currentPokemons[0][i]['types']['0']['type']['name'] == 'rock') {
-        document.getElementById(`pokedex${i}`).classList.add('background-bronze')
-        document.getElementById(`showDetails${i}`).classList.add('background-bronze')
-        document.getElementById(`detailsBox${i}`).classList.add('background-bronze')
-        document.getElementById(`type1${i}`).classList.add('background-bronze')
+        document.getElementById(`pokedex${i}`).classList.add('background-bronze');
+        document.getElementById(`showDetails${i}`).classList.add('background-bronze');
+        document.getElementById(`detailsBox${i}`).classList.add('background-bronze');
+        document.getElementById(`type1${i}`).classList.add('background-bronze');
         document.getElementById(`closeDetails${i}`).classList.add('invert');
-        document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/rock.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`
+        document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/rock.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`;
     }
 }
 
 
+/**
+ * This function will check Type 2 of the Pokemon
+ * 
+ * @param {*} i 
+ */
+
 function doesType2ExistAndIsRock(i) {
     if (`${currentPokemons[0][i]['types']['1']}` == 'undefined') {
-        document.getElementById(`type2${i}`).classList.remove('type')
+        type2doesNotExist(i);
     } else {
         if (currentPokemons[0][i]['types']['1']['type']['name'] == 'rock') {
-            document.getElementById(`type2${i}`).classList.add('background-bronze')
-            document.getElementById(`type2${i}`).innerHTML = `<img class="icon" src="img/rock.png"><div>${currentPokemons[0][i]['types'][1]['type']['name']}</div>`
+            document.getElementById(`type2${i}`).classList.add('background-bronze');
+            document.getElementById(`type2${i}`).innerHTML = `<img class="icon" src="img/rock.png"><div>${currentPokemons[0][i]['types'][1]['type']['name']}</div>`;
         }
     }
 }
@@ -828,25 +1012,37 @@ function renderGhostPokemon(i) {
 }
 
 
+/**
+ * This function will check Type 1 of the Pokemon
+ * 
+ * @param {*} i 
+ */
+
 function ifType1IsGhost(i) {
     if (currentPokemons[0][i]['types']['0']['type']['name'] == 'ghost') {
-        document.getElementById(`pokedex${i}`).classList.add('background-purple')
-        document.getElementById(`showDetails${i}`).classList.add('background-purple')
-        document.getElementById(`detailsBox${i}`).classList.add('background-purple')
-        document.getElementById(`type1${i}`).classList.add('background-purple')
+        document.getElementById(`pokedex${i}`).classList.add('background-purple');
+        document.getElementById(`showDetails${i}`).classList.add('background-purple');
+        document.getElementById(`detailsBox${i}`).classList.add('background-purple');
+        document.getElementById(`type1${i}`).classList.add('background-purple');
         document.getElementById(`closeDetails${i}`).classList.add('invert');
-        document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/ghost.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`
+        document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/ghost.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`;
     }
 }
 
 
+/**
+ * This function will check Type 2 of the Pokemon
+ * 
+ * @param {*} i 
+ */
+
 function doesType2ExistAndIsGhost(i) {
     if (`${currentPokemons[0][i]['types']['1']}` == 'undefined') {
-        document.getElementById(`type2${i}`).classList.remove('type')
+        type2doesNotExist(i);
     } else {
         if (currentPokemons[0][i]['types']['1']['type']['name'] == 'ghost') {
-            document.getElementById(`type2${i}`).classList.add('background-purple')
-            document.getElementById(`type2${i}`).innerHTML = `<img class="icon" src="img/ghost.png"><div>${currentPokemons[0][i]['types'][1]['type']['name']}</div>`
+            document.getElementById(`type2${i}`).classList.add('background-purple');
+            document.getElementById(`type2${i}`).innerHTML = `<img class="icon" src="img/ghost.png"><div>${currentPokemons[0][i]['types'][1]['type']['name']}</div>`;
         }
     }
 }
@@ -864,24 +1060,36 @@ function renderIcePokemon(i) {
 }
 
 
+/**
+ * This function will check Type 1 of the Pokemon
+ * 
+ * @param {*} i 
+ */
+
 function ifType1IsIce(i) {
     if (currentPokemons[0][i]['types']['0']['type']['name'] == 'ice') {
-        document.getElementById(`pokedex${i}`).classList.add('background-turquoise')
-        document.getElementById(`showDetails${i}`).classList.add('background-turquoise')
-        document.getElementById(`detailsBox${i}`).classList.add('background-turquoise')
-        document.getElementById(`type1${i}`).classList.add('background-turquoise')
-        document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/ice.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`
+        document.getElementById(`pokedex${i}`).classList.add('background-turquoise');
+        document.getElementById(`showDetails${i}`).classList.add('background-turquoise');
+        document.getElementById(`detailsBox${i}`).classList.add('background-turquoise');
+        document.getElementById(`type1${i}`).classList.add('background-turquoise');
+        document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/ice.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`;
     }
 }
 
 
+/**
+ * This function will check Type 2 of the Pokemon
+ * 
+ * @param {*} i 
+ */
+
 function doesType2ExistAndIsIce(i) {
     if (`${currentPokemons[0][i]['types']['1']}` == 'undefined') {
-        document.getElementById(`type2${i}`).classList.remove('type')
+        type2doesNotExist(i);
     } else {
         if (currentPokemons[0][i]['types']['1']['type']['name'] == 'ice') {
-            document.getElementById(`type2${i}`).classList.add('background-turquoise')
-            document.getElementById(`type2${i}`).innerHTML = `<img class="icon" src="img/ice.png"><div>${currentPokemons[0][i]['types'][1]['type']['name']}</div>`
+            document.getElementById(`type2${i}`).classList.add('background-turquoise');
+            document.getElementById(`type2${i}`).innerHTML = `<img class="icon" src="img/ice.png"><div>${currentPokemons[0][i]['types'][1]['type']['name']}</div>`;
         }
     }
 }
@@ -899,24 +1107,36 @@ function renderDragonPokemon(i) {
 }
 
 
+/**
+ * This function will check Type 1 of the Pokemon
+ * 
+ * @param {*} i 
+ */
+
 function ifType1IsDragon(i) {
     if (currentPokemons[0][i]['types']['0']['type']['name'] == 'dragon') {
-        document.getElementById(`pokedex${i}`).classList.add('background-redorange')
-        document.getElementById(`showDetails${i}`).classList.add('background-redorange')
-        document.getElementById(`detailsBox${i}`).classList.add('background-redorange')
-        document.getElementById(`type1${i}`).classList.add('background-redorange')
-        document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/dragon.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`
+        document.getElementById(`pokedex${i}`).classList.add('background-redorange');
+        document.getElementById(`showDetails${i}`).classList.add('background-redorange');
+        document.getElementById(`detailsBox${i}`).classList.add('background-redorange');
+        document.getElementById(`type1${i}`).classList.add('background-redorange');
+        document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/dragon.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`;
     }
 }
 
 
+/**
+ * This function will check Type 2 of the Pokemon
+ * 
+ * @param {*} i 
+ */
+
 function doesType2ExistAndIsDragon(i) {
     if (`${currentPokemons[0][i]['types']['1']}` == 'undefined') {
-        document.getElementById(`type2${i}`).classList.remove('type')
+        type2doesNotExist(i);
     } else {
         if (currentPokemons[0][i]['types']['1']['type']['name'] == 'dragon') {
-            document.getElementById(`type2${i}`).classList.add('background-redorange')
-            document.getElementById(`type2${i}`).innerHTML = `<img class="icon" src="img/dragon.png"><div>${currentPokemons[0][i]['types'][1]['type']['name']}</div>`
+            document.getElementById(`type2${i}`).classList.add('background-redorange');
+            document.getElementById(`type2${i}`).innerHTML = `<img class="icon" src="img/dragon.png"><div>${currentPokemons[0][i]['types'][1]['type']['name']}</div>`;
         }
     }
 }
@@ -934,24 +1154,36 @@ function renderDarkPokemon(i) {
 }
 
 
+/**
+ * This function will check Type 1 of the Pokemon
+ * 
+ * @param {*} i 
+ */
+
 function ifType1IsDark(i) {
     if (currentPokemons[0][i]['types']['0']['type']['name'] == 'dark') {
-        document.getElementById(`pokedex${i}`).classList.add('background-grey')
-        document.getElementById(`showDetails${i}`).classList.add('background-grey')
-        document.getElementById(`detailsBox${i}`).classList.add('background-grey')
-        document.getElementById(`type1${i}`).classList.add('background-grey')
-        document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/dark.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`
+        document.getElementById(`pokedex${i}`).classList.add('background-grey');
+        document.getElementById(`showDetails${i}`).classList.add('background-grey');
+        document.getElementById(`detailsBox${i}`).classList.add('background-grey');
+        document.getElementById(`type1${i}`).classList.add('background-grey');
+        document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/dark.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`;
     }
 }
 
 
+/**
+ * This function will check Type 2 of the Pokemon
+ * 
+ * @param {*} i 
+ */
+
 function doesType2ExistAndIsDark(i) {
     if (`${currentPokemons[0][i]['types']['1']}` == 'undefined') {
-        document.getElementById(`type2${i}`).classList.remove('type')
+        type2doesNotExist(i);
     } else {
         if (currentPokemons[0][i]['types']['1']['type']['name'] == 'dark') {
-            document.getElementById(`type2${i}`).classList.add('background-grey')
-            document.getElementById(`type2${i}`).innerHTML = `<img class="icon" src="img/dark.png"><div>${currentPokemons[0][i]['types'][1]['type']['name']}</div>`
+            document.getElementById(`type2${i}`).classList.add('background-grey');
+            document.getElementById(`type2${i}`).innerHTML = `<img class="icon" src="img/dark.png"><div>${currentPokemons[0][i]['types'][1]['type']['name']}</div>`;
         }
     }
 }
@@ -969,24 +1201,37 @@ function renderSteelPokemon(i) {
 }
 
 
+/**
+ * This function will check Type 1 of the Pokemon
+ * 
+ * @param {*} i 
+ */
+
 function ifType1IsSteel(i) {
     if (currentPokemons[0][i]['types']['0']['type']['name'] == 'steel') {
-        document.getElementById(`pokedex${i}`).classList.add('background-silver')
-        document.getElementById(`showDetails${i}`).classList.add('background-silver')
-        document.getElementById(`detailsBox${i}`).classList.add('background-silver')
-        document.getElementById(`type1${i}`).classList.add('background-silver')
-        document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/steel.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`
+        document.getElementById(`pokedex${i}`).classList.add('background-silver');
+        document.getElementById(`showDetails${i}`).classList.add('background-silver');
+        document.getElementById(`detailsBox${i}`).classList.add('background-silver');
+        document.getElementById(`type1${i}`).classList.add('background-silver');
+        document.getElementById(`type1${i}`).innerHTML = `<img class="icon" src="img/steel.png"><div>${currentPokemons[0][i]['types'][0]['type']['name']}</div>`;
     }
 }
 
 
+/**
+ * This function will check Type 2 of the Pokemon
+ * 
+ * @param {*} i 
+ */
+
 function doesType2ExistAndIsSteel(i) {
     if (`${currentPokemons[0][i]['types']['1']}` == 'undefined') {
-        document.getElementById(`type2${i}`).classList.remove('type')
+        type2doesNotExist(i);
     } else {
         if (currentPokemons[0][i]['types']['1']['type']['name'] == 'steel') {
-            document.getElementById(`type2${i}`).classList.add('background-silver')
-            document.getElementById(`type2${i}`).innerHTML = `<img class="icon" src="img/steel.png"><div>${currentPokemons[0][i]['types'][1]['type']['name']}</div>`
+            document.getElementById(`pokemonDetails1stContainer${i}`).classList.remove('center');
+            document.getElementById(`type2${i}`).classList.add('background-silver');
+            document.getElementById(`type2${i}`).innerHTML = `<img class="icon" src="img/steel.png"><div>${currentPokemons[0][i]['types'][1]['type']['name']}</div>`;
         }
     }
 }
