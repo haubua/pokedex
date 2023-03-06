@@ -1,17 +1,18 @@
 function renderSearchPokedexTemplate(i, pokedex) {
     pokedex.innerHTML += `<div id="pokedex${i}" class="pokedex">
                                 <h2 class="pokemonName">${currentPokemons[0][i]['name']}</h2>
-                                <img class="pokeball" src="img/pokeball.png">
-                                <img class="pokemonImg" src="${currentPokemons[0][i]['sprites']['other']['home']['front_shiny']}" alt="">
+                                <img class="pokeball" src="img/pokeball.png" id="pokeball${i}">
+                                <img class="pokemonImg" onclick="showDetails(${i})" src="${currentPokemons[0][i]['sprites']['other']['home']['front_shiny']}" alt="">
                                 <div id="pokemonInfo${i}" class="pokemonInfo"></div>
                             </div>`;
 }
 
+
 function renderPokemonInfoHtmlTemplate(i) {
     document.getElementById('showPokedex').innerHTML += `<div id="pokedex${i}" class="pokedex">
                                                             <h2 class="pokemonName">${currentPokemons[0][i]['name']}</h2>
-                                                            <img class="pokeball" src="img/pokeball.png">
-                                                            <img class="pokemonImg" src="${currentPokemons[0][i]['sprites']['other']['home']['front_shiny']}" alt="">
+                                                            <img class="pokeball" src="img/pokeball.png" id="pokeball${i}">
+                                                            <img class="pokemonImg" onclick="showDetails(${i})" src="${currentPokemons[0][i]['sprites']['other']['home']['front_shiny']}" alt="">
                                                             <div id="pokemonInfo${i}" class="pokemonInfo"></div>
                                                         </div>`;
 }
@@ -25,9 +26,11 @@ function renderfirstAbilityTemplate(i) {
                                                             </div>`
 }
 
+
 function rednerSecondAbilityTemplate(i) {
     document.getElementById(`abilities${i}`).innerHTML += `<div>2) ${currentPokemons[0][i]['abilities'][1]['ability']['name']}</div>`
 }
+
 
 function renderDetailsTemplate(i, details) {
     details.innerHTML += `<div class="detailsBox d-none" id="detailsBox${i}">
@@ -57,15 +60,8 @@ function renderDetailsTemplate(i, details) {
 }
 
 
-/**
- * This function will show you the statbar on a screen with a max-width of 400px
- * 
- * @param {*} i 
- */
-
-function showStatbar400pxTemplate(i) {
-    if (window.matchMedia("(max-width: 400px)").matches) {
-        document.getElementById(`statBase${i}`).innerHTML = `   <div class="wholeBar"> 
+function showStatbar400pxTemplate(i, statBase) {
+    statBase.innerHTML = `   <div class="wholeBar"> 
          <div class="startBar" style= width:${Math.round((152.99 / 255) * (currentPokemons[0][i]['stats'][0]['base_stat']))}px>
          ${currentPokemons[0][i]['stats'][0]['base_stat']}  / 255</div>
      </div>
@@ -89,19 +85,11 @@ function showStatbar400pxTemplate(i) {
          <div class="startBar" style= width:${Math.round((152.99 / 255) * (currentPokemons[0][i]['stats'][5]['base_stat']))}px>
          ${currentPokemons[0][i]['stats'][5]['base_stat']} / 255</div>
      </div>`
-    }
 }
 
 
-/**
- * This function will show you the statbar on a screen with a max-width of 550px
- * 
- * @param {*} i 
- */
-
-function showStatbar550pxTemplate(i) {
-    if (window.matchMedia("(max-width: 550px)").matches) {
-        document.getElementById(`statBase${i}`).innerHTML = `   <div class="wholeBar"> 
+function showStatbar550pxTemplate(i, statBase) {
+    statBase.innerHTML = `   <div class="wholeBar"> 
          <div class="startBar" style= width:${Math.round((242.8 / 255) * (currentPokemons[0][i]['stats'][0]['base_stat']))}px>
          ${currentPokemons[0][i]['stats'][0]['base_stat']}  / 255</div>
      </div>
@@ -125,18 +113,10 @@ function showStatbar550pxTemplate(i) {
          <div class="startBar" style= width:${Math.round((242.8 / 255) * (currentPokemons[0][i]['stats'][5]['base_stat']))}px>
          ${currentPokemons[0][i]['stats'][5]['base_stat']} / 255</div>
      </div>`
-    }
 }
 
-/**
- * This function will show you the statbar on a screen with a max-width of 650px
- * 
- * @param {*} i 
- */
-
-function showStatBar650pxTemplate(i) {
-    if (window.matchMedia("(max-width: 650px)").matches) {
-        document.getElementById(`statBase${i}`).innerHTML = `   <div class="wholeBar"> 
+function showStatBar650pxTemplate(i, statBase) {
+    statBase.innerHTML = `   <div class="wholeBar"> 
             <div class="startBar" style= width:${Math.round((343.6 / 255) * (currentPokemons[0][i]['stats'][0]['base_stat']))}px>
             ${currentPokemons[0][i]['stats'][0]['base_stat']}  / 255</div>
         </div>
@@ -160,18 +140,11 @@ function showStatBar650pxTemplate(i) {
             <div class="startBar" style= width:${Math.round((343.6 / 255) * (currentPokemons[0][i]['stats'][5]['base_stat']))}px>
             ${currentPokemons[0][i]['stats'][5]['base_stat']} / 255</div>
         </div>`
-    }
 }
 
 
-/**
- * This function will show you the statbar on a screen with a width more then 650px
- * 
- * @param {*} i 
- */
-
-function showStatBarMoreThen650pxTemplate(i) {
-    document.getElementById(`statBase${i}`).innerHTML = `   <div class="wholeBar"> 
+function showStatBarMoreThen650pxTemplate(i, statBase) {
+    statBase.innerHTML = `   <div class="wholeBar"> 
         <div class="startBar" style= width:${Math.round((408 / 255) * (currentPokemons[0][i]['stats'][0]['base_stat']))}px>
         ${currentPokemons[0][i]['stats'][0]['base_stat']}  / 255</div>
     </div>
