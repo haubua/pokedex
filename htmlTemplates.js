@@ -33,7 +33,9 @@ function rednerSecondAbilityTemplate(i) {
 
 
 function renderDetailsTemplate(i, details) {
-    details.innerHTML += `<div class="detailsBox d-none" id="detailsBox${i}">
+    details.innerHTML += `
+                        <div id="noScrollNoClick${i}" class="noScrollNoClick d-none" onclick="closeDetails(${i})"></div>
+                        <div class="detailsBox d-none" id="detailsBox${i}">
                             <div class="pokemonName detailsName">${currentPokemons[0][i]['name']}</div>
                             <img class="pokemonDetailsImg" src="${currentPokemons[0][i]['sprites']['other']['home']['front_shiny']}" alt="">
                             <img class="pokeballDetails" src="img/pokeball.png">

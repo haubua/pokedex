@@ -58,6 +58,7 @@ h2 {
 }
 
 
+
 .center {
     justify-content: center !important;
 }
@@ -122,11 +123,13 @@ h2 {
 }
 
 .noScrollNoClick {
-    background-color: #fbfbfb;
+    background-color: rgba(255, 255, 255, 0.9);
     opacity: 0.3;
     z-index: 1;
-    height: 100vh;
-    width: 100vw;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
     position: fixed;
 }
 
@@ -253,10 +256,11 @@ header button {
     margin-top: -25px;
     filter: drop-shadow(12px 5px 3px rgba(0, 0, 0, 0.2));
     transition: transform 255ms;
+    cursor: pointer;
 }
 
 .pokemonImg:hover {
-    transform: scale(1.15);
+    transform: scale(1.09);
 }
 
 .pokeball {
@@ -399,6 +403,7 @@ header button {
     box-shadow: 1px 1px 3px 1px rgb(0 0 0 / 40%);
     display: flex;
     align-items: center;
+    cursor: context-menu;
 }
 
 .wholeBar {
@@ -461,11 +466,12 @@ header button {
 }
 
 .pokemonDetailsImg:hover {
-    transform: scale(1.25);
+    transform: scale(1.1);
 }
 
 .showDetails:hover {
-    transform: scale(1.2);
+    cursor: pointer;
+    filter:invert(0.2)
 }
 
 .background-green {
